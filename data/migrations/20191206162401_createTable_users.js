@@ -13,7 +13,7 @@ exports.up = function(knex) {
       .string("email")
       .notNullable()
       .unique();
-    tbl.string("first_name").notNullalbe();
+    tbl.string("first_name").notNullable();
     tbl.string("last_name").notNullable();
     tbl.string("title");
     tbl.timestamps(true, true);
