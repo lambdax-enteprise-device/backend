@@ -22,5 +22,5 @@ exports.up = function(knex) {
 };
 
 exports.down = function(knex) {
-  return knex.schema.dropTableIfExists("permission_groups");
+  return knex.schema.dropTableIfExists("permissions_groups");
 };
