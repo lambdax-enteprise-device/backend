@@ -3,9 +3,14 @@ const knex = require("knex");
 const db = require("../../data/db-config.js");
 
 module.exports = {
-  find
+  findAllUsers,
+  findCompanyUsers
 };
 
-function find() {
+function findAllUsers() {
   return db("users");
+}
+
+function findCompanyUsers(company) {
+  return db("users").where("company");
 }
