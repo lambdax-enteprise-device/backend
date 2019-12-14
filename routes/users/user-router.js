@@ -27,4 +27,27 @@ router.post("/company", (req, res) => {
     });
 });
 
+router.post("/", (req, res) => {
+  const user = req.body;
+  Users.add(user)
+    .then(user => {
+      res.status(200).json(user);
+    })
+    .catch(error => {
+      res.status(500).json({ message: "Unable to add user" });
+    });
+});
+
+router.get("/:id", (req, res) => {
+  const { id } = req.params;
+
+  Users.findById(id)
+    .then(user => {
+      res.status(200).json(user);
+    })
+    .catch(error => {
+      res.status(500).json({ message: "Unable to retrieve User" });
+    });
+});
+
 module.exports = router;
