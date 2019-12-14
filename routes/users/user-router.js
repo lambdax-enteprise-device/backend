@@ -13,4 +13,18 @@ router.get("/", (req, res) => {
     });
 });
 
+router.post("/company", (req, res) => {
+  const { company } = req.body;
+  console.log(company);
+  Users.findUsersByCompany(company)
+    .then(users => {
+      res.status(200).json(users);
+    })
+    .catch(error => {
+      res
+        .status(500)
+        .json({ message: `Could not find users under ${company}` });
+    });
+});
+
 module.exports = router;

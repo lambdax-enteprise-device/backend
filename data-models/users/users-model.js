@@ -1,16 +1,19 @@
-const knex = require("knex");
-
 const db = require("../../data/db-config.js");
 
 module.exports = {
   findAllUsers,
-  findCompanyUsers
+  findUsersByCompany
 };
 
 function findAllUsers() {
   return db("users");
 }
 
-function findCompanyUsers(company) {
-  return db("users").where("company");
+function findUsersByCompany(company) {
+  return (
+    db("users")
+      // .select("first_name", "last_name")
+      .innerJoin("companies", "users.company_id", "companies.id")
+      .where({ company_name: company })
+  );
 }
