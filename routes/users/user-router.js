@@ -50,4 +50,16 @@ router.get("/:id", (req, res) => {
     });
 });
 
+router.put("/:id", (req, res) => {
+  const { id } = req.params;
+
+  Users.update(id, req.body)
+    .then(updatedUser => {
+      res.status(200).json(updatedUser);
+    })
+    .catch(error => {
+      res.status(500).json({ message: "Unable to update user" });
+    });
+});
+
 module.exports = router;
