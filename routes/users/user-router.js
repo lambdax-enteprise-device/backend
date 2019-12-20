@@ -62,4 +62,6 @@ router.put("/:id", (req, res) => {
     });
 });
 
+//* Will need to add delete once the process for user deletion is created (i.e. once all the other dependent foreign keys are deleted in the proper order)
+
 module.exports = router;
