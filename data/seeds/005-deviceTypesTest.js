@@ -4,6 +4,12 @@ exports.seed = function(knex) {
     .del()
     .then(function() {
       // Inserts seed entries
-      return knex("device_types").insert([{ type: "Laptop" }]);
+      return knex("device_types").insert([
+        { type: "Laptop" },
+        { type: "Desktop" },
+        { type: "Phone" },
+        { type: "Server" },
+        { type: "Accessories" }
+      ]);
     });
 };
