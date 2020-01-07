@@ -17,10 +17,12 @@ function findById(id) {
     .first();
 }
 
-async function add(company) {
-  const [id] = await db("companies").insert(company, "id");
+async function add(company, user) {
+  const [companyId] = await db("companies").insert(company, "id");
+  user["company_id"] = companyId;
 
-  return findById(id);
+  await db("users").insert(user, "id");
+  return findById(companyId);
 }
 
 async function update(id, changes) {
