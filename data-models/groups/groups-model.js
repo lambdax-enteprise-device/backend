@@ -5,6 +5,7 @@ module.exports = {
   findGroupsByCompany,
   findById,
   add,
+  update,
   remove
 };
 
@@ -29,6 +30,14 @@ function findById(id) {
 
 async function add(request) {
   const [id] = await db("groups").insert(request, "id");
+
+  return findById(id);
+}
+
+async function update(id, changes) {
+  await db("groups")
+    .update(changes)
+    .where({ id });
 
   return findById(id);
 }

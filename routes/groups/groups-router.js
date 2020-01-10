@@ -38,6 +38,24 @@ router.get("/:id", (req, res) => {
     });
 });
 
+router.put("/:id", (req, res) => {
+  const { id } = req.params;
+  const changes = req.body;
+
+  Groups.update(id, changes)
+    .then(updatedGroup => {
+      res.status(200).json(updatedGroup);
+    })
+    .catch(error => {
+      res
+        .status(500)
+        .json({
+          message: `Unable to update group with ID: ${id}`,
+          error: error
+        });
+    });
+});
+
 router.delete("/:id", (req, res) => {
   const { id } = req.params;
 
