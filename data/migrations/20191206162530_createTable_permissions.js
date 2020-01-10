@@ -1,14 +1,13 @@
 exports.up = function(knex) {
-  return knex.schema.createTable("permissions", tbl => {
+  return knex.schema.createTable("roles", tbl => {
     tbl.increments();
-    tbl
-      .string("permission_type")
-      .notNullable()
-      .unique();
+    tbl.string("name", 128).notNullable();
+    tbl.string("assignment").notNullable();
     tbl.string("access_level").notNullable();
+    tbl.text("description");
   });
 };
 
 exports.down = function(knex) {
-  return knex.schema.dropTableIfExists("permissions");
+  return knex.schema.dropTableIfExists("roles");
 };
