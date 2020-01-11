@@ -40,3 +40,9 @@ async function update(id, changes) {
 
   return findById(id);
 }
+
+function remove(id) {
+  return db("devices")
+    .del()
+    .where({ id });
+}
