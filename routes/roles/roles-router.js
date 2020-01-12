@@ -13,6 +13,22 @@ router.get("/", (req, res) => {
     });
 });
 
+router.get("/company", (req, res) => {
+  const { companyId } = req.body;
+
+  Roles.findRolesByCompany(companyId)
+    .then(roles => {
+      res.status(200).json(roles);
+    })
+    .catch(error => {
+      res
+        .status(500)
+        .json({
+          message: `Could not find roles with company ID: ${companyId}`
+        });
+    });
+});
+
 router.post("/", (req, res) => {
   const role = req.body;
   Roles.add(role)
