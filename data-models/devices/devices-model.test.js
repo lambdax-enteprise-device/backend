@@ -11,7 +11,6 @@ describe('devices model', () => {
 
     test('should add the provided device into the db', async () => {
       await Devices.add({internal_id: 'ACR665'})
-
       const devices = await db('devices')
       expect(devices).toHaveLength(1)
     })
