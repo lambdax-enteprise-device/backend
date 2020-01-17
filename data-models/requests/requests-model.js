@@ -1,40 +1,41 @@
 const db = require("../../data/db-config.js");
 
 module.exports = {
-  findAllDevices,
-  findDevicesByCompany,
+  findAllRequests,
+  findRequestsByCompany,
   findById,
   add,
-  update
+  update,
+  remove
 };
 
-function findAllDevices() {
-  return db("devices");
+function findAllRequests() {
+  return db("requests");
 }
 
-function findDevicesByCompany(company) {
+function findRequestsByCompany(company) {
   return (
-    db("devices")
+    db("requests")
       // .select("first_name", "last_name")
-      .innerJoin("companies", "devices.company_id", "companies.id")
+      .innerJoin("companies", "requests.company_id", "companies.id")
       .where({ company_name: company })
   );
 }
 
 function findById(id) {
-  return db("devices")
+  return db("requests")
     .where({ id })
     .first();
 }
 
-async function add(device) {
-  const [id] = await db("devices").insert(device, "id");
+async function add(request) {
+  const [id] = await db("requests").insert(request, "id");
 
   return findById(id);
 }
 
 async function update(id, changes) {
-  await db("devices")
+  await db("requests")
     .update(changes)
     .where({ id });
 
@@ -42,7 +43,7 @@ async function update(id, changes) {
 }
 
 function remove(id) {
-  return db("devices")
+  return db("requests")
     .del()
     .where({ id });
 }

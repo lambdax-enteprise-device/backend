@@ -1,5 +1,5 @@
 exports.up = function(knex) {
-  return knex.schema.createTable("request_detail", tbl => {
+  return knex.schema.createTable("request_items", tbl => {
     tbl.increments();
     tbl
       .integer("request_id")
@@ -21,5 +21,5 @@ exports.up = function(knex) {
 };
 
 exports.down = function(knex) {
-  return knex.schema.dropTableIfExists("request_detail");
+  return knex.schema.dropTableIfExists("request_items");
 };
