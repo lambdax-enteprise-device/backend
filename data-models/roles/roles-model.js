@@ -13,12 +13,12 @@ function findAllRoles() {
   return db("roles");
 }
 
-function findRolesByCompany(company) {
+function findRolesByCompany(companyId) {
   return (
     db("roles")
-      // .select("first_name", "last_name")
-      .innerJoin("companies", "roles.company_id", "companies.id")
-      .where({ company_name: company })
+      // * Not sure inner join is needed. Best to go off of company ID tied to user account
+      //   .innerJoin("companies", "roles.company_id", "companies.id")
+      .where({ company_id: companyId })
   );
 }
 
