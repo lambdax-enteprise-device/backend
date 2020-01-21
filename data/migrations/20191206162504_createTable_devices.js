@@ -30,6 +30,7 @@ exports.up = function(knex) {
     tbl.boolean("active");
     tbl.string("cost_center");
     tbl.string("location");
+    tbl.timestamps(true, true);
   });
 };
 

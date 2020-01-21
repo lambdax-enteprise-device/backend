@@ -1,5 +1,5 @@
 exports.up = function(knex) {
-  return knex.schema.createTable("permissions_groups", tbl => {
+  return knex.schema.createTable("role_groups", tbl => {
     tbl.increments();
     tbl
       .integer("group_id")
@@ -10,17 +10,18 @@ exports.up = function(knex) {
       .onDelete("CASCADE")
       .onUpdate("CASCADE");
     tbl
-      .integer("permission_id")
+      .integer("role_id")
       .unsigned()
       .notNullable()
       .references("id")
-      .inTable("permissions")
+      .inTable("roles")
       .onDelete("CASCADE")
       .onUpdate("CASCADE");
-    tbl.unique(["group_id", "permission_id"]);
+    tbl.timestamps(true, true);
+    tbl.unique(["group_id", "role_id"]);
   });
 };
 
 exports.down = function(knex) {
-  return knex.schema.dropTableIfExists("permissions_groups");
+  return knex.schema.dropTableIfExists("role_groups");
 };

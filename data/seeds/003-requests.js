@@ -6,12 +6,12 @@ exports.seed = function(knex) {
       // Inserts seed entries
       return knex("requests").insert([
         {
-          company_id: 1,
-          employee_id: 1234,
-          employee_name: "Ben Dover",
-          employee_email: "ben.dover@testcompany.com",
+          company_id: 2,
+          employee_id: 1337,
+          employee_name: "Joel Perez",
+          employee_email: "joel.perez@enterprisedevices.com",
           approver_name: "Jack Sparrow",
-          approver_email: "jack.sparrow@testcompany.com",
+          approver_email: "jack.sparrow@enterprisedevices.com",
           request_justification: "I just want new stuff!"
         }
       ]);
