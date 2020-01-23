@@ -1,13 +1,13 @@
 exports.seed = function(knex) {
   // Deletes ALL existing entries
-  return knex("permissions_groups")
+  return knex("role_groups")
     .del()
     .then(function() {
       // Inserts seed entries
-      return knex("permissions_groups").insert([
+      return knex("role_groups").insert([
         {
           group_id: 1,
-          permission_id: 1
+          role_id: 1
         }
       ]);
     });
