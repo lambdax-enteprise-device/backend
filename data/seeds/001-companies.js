@@ -4,6 +4,9 @@ exports.seed = function(knex) {
     .del()
     .then(function() {
       // Inserts seed entries
-      return knex("companies").insert([{ company_name: "test_company" }]);
+      return knex("companies").insert([
+        { company_name: "***ALL Companies***", active: true },
+        { company_name: "Enterprise Devices", active: true }
+      ]);
     });
 };

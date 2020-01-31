@@ -1,7 +1,6 @@
 exports.up = function(knex) {
   return knex.schema.createTable("roles", tbl => {
     tbl.increments();
-    tbl.string("name", 128).notNullable();
     tbl
       .integer("company_id")
       .unsigned()
@@ -9,10 +8,12 @@ exports.up = function(knex) {
       .references("id")
       .inTable("companies")
       .onDelete("CASCADE")
-      .OnUpdate("CASCADE");
+      .onUpdate("CASCADE");
+    tbl.string("name", 128).notNullable();
     tbl.string("assignment").notNullable();
     tbl.string("access_level").notNullable();
     tbl.text("description");
+    tbl.timestamps(true, true);
   });
 };
 

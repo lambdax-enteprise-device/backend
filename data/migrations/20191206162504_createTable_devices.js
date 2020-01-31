@@ -18,6 +18,14 @@ exports.up = function(knex) {
       .onDelete("CASCADE")
       .onUpdate("CASCADE");
     tbl
+      .integer("location_id")
+      .unsigned()
+      .notNullable()
+      .references("id")
+      .inTable("company_locations")
+      .onDelete("CASCADE")
+      .onUpdate("CASCADE");
+    tbl
       .integer("manufacturer_id")
       .unsigned()
       .notNullable()
@@ -30,6 +38,7 @@ exports.up = function(knex) {
     tbl.boolean("active");
     tbl.string("cost_center");
     tbl.string("location");
+    tbl.timestamps(true, true);
   });
 };
 

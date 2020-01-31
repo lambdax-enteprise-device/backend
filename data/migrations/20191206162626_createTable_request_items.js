@@ -17,6 +17,7 @@ exports.up = function(knex) {
       .inTable("device_types")
       .onDelete("CASCADE")
       .onUpdate("CASCADE");
+    tbl.timestamps(true, true);
   });
 };
 

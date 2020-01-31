@@ -19,6 +19,7 @@ exports.up = function(knex) {
       .onUpdate("CASCADE");
     tbl.date("reserve_start");
     tbl.date("reserve_end");
+    tbl.timestamps(true, true);
     tbl.unique(["user_id", "device_id"]);
   });
 };

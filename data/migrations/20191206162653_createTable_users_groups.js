@@ -17,6 +17,7 @@ exports.up = function(knex) {
       .inTable("groups")
       .onDelete("CASCADE")
       .onUpdate("CASCADE");
+    tbl.timestamps(true, true);
     tbl.unique(["user_id", "group_id"]);
   });
 };

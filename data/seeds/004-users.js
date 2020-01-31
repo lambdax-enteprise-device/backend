@@ -6,11 +6,11 @@ exports.seed = function(knex) {
       // Inserts seed entries
       return knex("users").insert([
         {
-          company_id: 1,
+          company_id: 2,
           email: "joel.perez@testcompany.com",
           first_name: "Joel",
           last_name: "Perez",
-          title: "IT Manager"
+          title: "CTO"
         }
       ]);
     });
