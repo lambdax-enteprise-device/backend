@@ -9,13 +9,13 @@ describe('devices model', () => {
       await db('devices').truncate()
     })
 
-    test('should add the provided device into the db', async () => {
+    test.skip('should add the provided device into the db', async () => {
       await Devices.add({internal_id: 'ACR665'})
       const devices = await db('devices')
       expect(devices).toHaveLength(1)
     })
 
-    test('should return the device internal_id', async () => {
+    test.skip('should return the device internal_id', async () => {
       const device = await Devices.add({ internal_id: "ACR665" })
       expect(device.internal_id).toBe('ACR665')
     })
