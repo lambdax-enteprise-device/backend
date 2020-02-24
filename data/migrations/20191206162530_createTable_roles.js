@@ -11,7 +11,7 @@ exports.up = function(knex) {
       .onUpdate("CASCADE");
     tbl.string("name", 128).notNullable();
     tbl.string("assignment").notNullable();
-    tbl.string("access_level").notNullable();
+    tbl.integer("access_level").notNullable();
     tbl.text("description");
     tbl.timestamps(true, true);
   });
