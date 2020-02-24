@@ -26,6 +26,7 @@ router.post("/company", (req, res) => {
     });
 });
 
+// Add new Users
 router.post("/", (req, res) => {
   const user = req.body;
   Users.add(user)
