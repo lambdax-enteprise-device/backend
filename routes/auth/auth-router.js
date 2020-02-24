@@ -32,8 +32,9 @@ router.post("/signup", (req, res) => {
 
 router.post("/login", (req, res) => {
   const { email, password } = req.body;
-  Auth.find({ email })
+  Auth.login({ email })
     .then(user => {
+      console.log(user);
       if (user && bcrypt.compareSync(password, user.password)) {
         const token = generateToken(user);
         res.status(200).json({

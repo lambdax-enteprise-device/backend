@@ -4,7 +4,7 @@ const generateToken = require("../../utils/auth/generateToken");
 
 module.exports = {
   signUp,
-  find
+  login
 };
 
 async function signUp(company, user) {
@@ -52,6 +52,8 @@ async function signUp(company, user) {
   return user;
 }
 
-async function find(filter) {
-  return db("users").where(filter);
+async function login(filter) {
+  return db("users")
+    .where(filter)
+    .first();
 }
