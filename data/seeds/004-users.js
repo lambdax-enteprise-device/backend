@@ -6,8 +6,10 @@ exports.seed = function(knex) {
       // Inserts seed entries
       return knex("users").insert([
         {
-          company_id: 2,
+          company_id: 1,
           email: "joel.perez@testcompany.com",
+          password:
+            "$2b$10$01efxyrpX0iFApoZvyYs5OVNtFTdAQXon1fvUQMhP1wp8w2oyOEIG",
           first_name: "Joel",
           last_name: "Perez",
           title: "CTO"

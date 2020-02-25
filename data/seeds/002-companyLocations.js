@@ -6,18 +6,18 @@ exports.seed = function(knex) {
       // Inserts seed entries
       return knex("company_locations").insert([
         {
-          company_id: 2,
+          company_id: 1,
           street_address: "560 S Carr Ave",
           city: "Lafayette",
           state_province: "Colorado",
-          zip: 80026
+          postal_code: "80026"
         },
         {
-          company_id: 2,
+          company_id: 1,
           street_address: "640 Stonebridge Dr.",
           city: "Longmont",
           state_province: "Colorado",
-          zip: 80503
+          postal_code: "80503"
         }
       ]);
     });

@@ -2,7 +2,7 @@ const router = require("express").Router();
 
 const Groups = require("../../data-models/groups/groups-model.js");
 
-// Get all Manufacturers
+// Get all Groups
 router.get("/", (req, res) => {
   Groups.findAllGroups()
     .then(groups => {
@@ -47,12 +47,10 @@ router.put("/:id", (req, res) => {
       res.status(200).json(updatedGroup);
     })
     .catch(error => {
-      res
-        .status(500)
-        .json({
-          message: `Unable to update group with ID: ${id}`,
-          error: error
-        });
+      res.status(500).json({
+        message: `Unable to update group with ID: ${id}`,
+        error: error
+      });
     });
 });
 

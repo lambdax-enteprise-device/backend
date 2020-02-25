@@ -6,7 +6,7 @@ exports.seed = function(knex) {
       // Inserts seed entries
       return knex("requests").insert([
         {
-          company_id: 2,
+          company_id: 1,
           location_id: 1,
           employee_id: 1337,
           employee_name: "Joel Perez",

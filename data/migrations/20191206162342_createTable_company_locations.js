@@ -12,7 +12,7 @@ exports.up = function(knex) {
     tbl.string("street_address");
     tbl.string("city", 128);
     tbl.string("state_province", 64);
-    tbl.string("zip", 32);
+    tbl.string("postal_code", 32);
     tbl.timestamps(true, true);
   });
 };

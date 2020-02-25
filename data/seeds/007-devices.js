@@ -6,7 +6,7 @@ exports.seed = function(knex) {
       // Inserts seed entries
       return knex("devices").insert([
         {
-          company_id: 2,
+          company_id: 1,
           device_type_id: 1,
           location_id: 1,
           manufacturer_id: 1,
