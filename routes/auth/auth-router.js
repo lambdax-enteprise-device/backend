@@ -18,20 +18,21 @@ router.post("/signup", (req, res) => {
   user.password = hashPW;
 
   Auth.signUp(company, user)
-    .then(company => {
+    .then(user => {
+      const token = generateToken(user);
       res.status(200).json({
-        message: `Company ${company.company_name} and User ${user.email} created successfully`
+        message: `Company ${company.company_name} and User ${user.email} created successfully`,
+        token
       });
     })
     .catch(error => {
-      res.status(500).json({ message: "Unable to add company" });
+      res.status(500).json({ message: "Unable to Sign Up New User" });
     });
 });
 
 router.post("/login", (req, res) => {
   const { email, password } = req.body;
-  Auth.find({ email })
-    .first()
+  Auth.login({ email })
     .then(user => {
       if (user && bcrypt.compareSync(password, user.password)) {
         const token = generateToken(user);
