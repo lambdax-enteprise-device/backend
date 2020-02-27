@@ -9,7 +9,7 @@ router.get("/", (req, res) => {
       res.status(200).json(users);
     })
     .catch(error => {
-      res.status(500).json({ message: "Could not get Users" });
+      res.status(500).json({ message: "Could not get Users", error: error });
     });
 });
 
@@ -48,7 +48,6 @@ router.get("/:id", (req, res) => {
     .catch(error => {
       res.status(500).json({ message: "Unable to retrieve User" });
     });
-});
 
 router.put("/:id", (req, res) => {
   const { id } = req.params;
