@@ -48,6 +48,7 @@ router.get("/:id", (req, res) => {
     .catch(error => {
       res.status(500).json({ message: "Unable to retrieve User" });
     });
+});
 
 router.put("/:id", (req, res) => {
   const { id } = req.params;
