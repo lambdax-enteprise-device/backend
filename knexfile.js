@@ -42,11 +42,12 @@ module.exports = {
   },
   production: {
     client: "pg",
-    connection: process.env.DATABASE_URL || {
-      database: process.env.DB,
-      user: process.env.DB_USER,
-      password: process.env.DB_PASSWORD
-    },
+    connection: process.env.DATABASE_URL,
+    // || {
+    //   database: process.env.DB,
+    //   user: process.env.DB_USER,
+    //   password: process.env.DB_PASSWORD
+    // },
     migrations: {
       directory: "./data/migrations"
     },
