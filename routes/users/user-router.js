@@ -9,7 +9,7 @@ router.get("/", (req, res) => {
       res.status(200).json(users);
     })
     .catch(error => {
-      res.status(500).json({ message: "Could not get Users" });
+      res.status(500).json({ message: "Could not get Users", error: error });
     });
 });
 
