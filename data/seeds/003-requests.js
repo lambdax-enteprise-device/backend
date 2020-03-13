@@ -13,7 +13,8 @@ exports.seed = function(knex) {
           employee_email: "joel.perez@enterprisedevices.com",
           approver_name: "Jack Sparrow",
           approver_email: "jack.sparrow@enterprisedevices.com",
-          request_justification: "I just want new stuff!"
+          request_justification: "I just want new stuff!",
+          approved: false
         }
       ]);
     });
