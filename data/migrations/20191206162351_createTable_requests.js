@@ -23,6 +23,7 @@ exports.up = function(knex) {
     tbl.string("approver_name");
     tbl.string("approver_email");
     tbl.text("request_justification").notNullable();
+    tbl.boolean("approved").notNullable();
     tbl.timestamps(true, true);
   });
 };

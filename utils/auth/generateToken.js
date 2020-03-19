@@ -3,7 +3,7 @@ const secret = require("../secrets.js");
 
 module.exports = function(user) {
   const jwtPayload = {
-    subject: user.id,
+    userId: user.id,
     username: user.email
   };
   const jwtOptions = {
