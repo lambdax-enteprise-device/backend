@@ -24,12 +24,14 @@ router.post("/signup", (req, res) => {
       const token = generateToken(user);
       res.status(200).json({
         message: "Sign Up Success",
-        companyId: user.company_id,
-        id: user.id,
-        email: user.email,
-        firstName: user.first_name,
-        lastName: user.last_name,
-        title: user.title,
+        user: {
+          companyId: user.company_id,
+          id: user.id,
+          email: user.email,
+          firstName: user.first_name,
+          lastName: user.last_name,
+          title: user.title
+        },
         token: token
       });
     })
@@ -47,12 +49,14 @@ router.post("/login", (req, res) => {
         const token = generateToken(user);
         res.status(200).json({
           message: "Login Success",
-          companyId: user.company_id,
-          id: user.id,
-          email: user.email,
-          firstName: user.first_name,
-          lastName: user.last_name,
-          title: user.title,
+          user: {
+            companyId: user.company_id,
+            id: user.id,
+            email: user.email,
+            firstName: user.first_name,
+            lastName: user.last_name,
+            title: user.title
+          },
           token: token
         });
       } else {
