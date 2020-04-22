@@ -12,6 +12,7 @@ router.get("/", (req, res) => {
     })
     .catch(error => {
       res.status(500).json({ message: "Could not get Companies" });
+      console.log(error);
     });
 });
 
