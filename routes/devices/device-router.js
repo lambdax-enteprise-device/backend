@@ -4,7 +4,7 @@ const Devices = require("../../data-models/devices/devices-model.js");
 
 // Get all users
 router.get("/", (req, res) => {
-  Devices.findAllDevices()
+    Devices.findAllDevices()
     .then(devices => {
       res.status(200).json(devices);
     })

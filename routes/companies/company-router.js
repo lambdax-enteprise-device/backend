@@ -8,7 +8,6 @@ const Companies = require("../../data-models/companies/company-model.js");
 router.get("/", (req, res) => {
   Companies.findAllCompanies()
     .then(companies => {
-      
       res.status(200).json(companies);
     })
     .catch(error => {
