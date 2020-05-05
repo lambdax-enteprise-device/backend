@@ -12,6 +12,13 @@ const authRouter = require("../routes/auth/auth-router.js");
 
 const server = express();
 
+function logger(req, res, next) {
+  const url = req.url;
+  const method = req.method;
+  console.log(`There was a ${method} on ${url} @${Date.now()}`);
+  next();
+}
+server.use(logger)
 server.use(express.json());
 server.use(helmet());
 server.use(cors());
