@@ -22,8 +22,18 @@ router.post("/signup", (req, res) => {
     .then(user => {
       console.log(user);
       const token = generateToken(user);
-      res.cookie("entDevicesToken", token, sevenDayCookie);
-      res.send("User cookie created");
+      res.status(200).json({
+        message: "Sign Up Success",
+        user: {
+          companyId: user.company_id,
+          id: user.id,
+          email: user.email,
+          firstName: user.first_name,
+          lastName: user.last_name,
+          title: user.title
+        },
+        token: token
+      });
     })
     .catch(error => {
       console.log(error);
@@ -37,8 +47,18 @@ router.post("/login", (req, res) => {
     .then(user => {
       if (user && bcrypt.compareSync(password, user.password)) {
         const token = generateToken(user);
-        res.cookie("entDevicesToken", token, sevenDayCookie);
-        res.send("User cookie created");
+        res.status(200).json({
+          message: "Login Success",
+          user: {
+            companyId: user.company_id,
+            id: user.id,
+            email: user.email,
+            firstName: user.first_name,
+            lastName: user.last_name,
+            title: user.title
+          },
+          token: token
+        });
       } else {
         res.status(401).json({ message: "Email or password incorrect" });
       }
