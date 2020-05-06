@@ -22,7 +22,7 @@ module.exports = {
     useNullAsDefault: true
   },
   testing: {
-    client: "postgresql",
+    client: "pg",
     connection: {
       database: process.env.DB_TEST,
       user: process.env.DB_TEST_USER,

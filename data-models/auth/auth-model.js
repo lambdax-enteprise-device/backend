@@ -49,6 +49,7 @@ async function signUp(company, user) {
   );
 
   user.company_name = company.company_name;
+  user.id = userId;
   return user;
 }
 

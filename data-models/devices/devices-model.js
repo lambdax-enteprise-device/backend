@@ -5,7 +5,9 @@ module.exports = {
   findDevicesByCompany,
   findById,
   add,
-  update
+  update,
+  findDevicesByCompanyId,
+  remove
 };
 
 function findAllDevices() {
@@ -19,6 +21,10 @@ function findDevicesByCompany(company) {
       .innerJoin("companies", "devices.company_id", "companies.id")
       .where({ company_name: company })
   );
+}
+
+function findDevicesByCompanyId(id) {
+  return db("devices").where({ company_id: id });
 }
 
 function findById(id) {
