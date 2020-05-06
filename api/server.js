@@ -10,6 +10,7 @@ const requestsRouter = require("../routes/requests/requests-router.js");
 const manufacturersRouter = require("../routes/manufacturers/mfg-router.js");
 const deviceTypesRouter = require("../routes/devices/deviceTypes-router.js");
 const authRouter = require("../routes/auth/auth-router.js");
+const userDevicesRouter = require("../routes/users_devices/users_devices-router.js")
 
 const server = express();
 
@@ -25,6 +26,7 @@ server.use("/api/company", companyRouter);
 server.use("/api/requests", requestsRouter);
 server.use("/api/mfgs", manufacturersRouter);
 server.use("/api/device_types", deviceTypesRouter);
+server.use("/api/user_devices", userDevicesRouter);
 
 server.get("/", (req, res) => {
   return res.json({ message: "Server is up" });
