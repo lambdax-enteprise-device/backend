@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const bcrypt = require("bcrypt");
-
+const sendEmail = require('../../mailer/mailer')
 const Auth = require("../../data-models/auth/auth-model.js");
 const generateToken = require("../../utils/auth/generateToken.js");
 
@@ -14,20 +14,33 @@ router.post("/signup", (req, res) => {
     title: req.body.title,
     password: req.body.password
   };
+  const userData = {from:"Lambda X Enterpirse Device <test@sandbox8a329a5d78ff4cbf94fc98e636de2930.mailgun.org>",
+                    to:`${user.first_name}  <${user.email}>`,
+                    subject:"Signup Conformation",
+                    text:`Hello ${user.first_name},\n This is to confirm you've sucessfully signed up with Lambda X Enterprise Device\n Thank You,\n Lambda X Enterprise Device Dev Team`}
   const hashPW = bcrypt.hashSync(user.password, 10);
   user.password = hashPW;
 
   Auth.signUp(company, user)
     .then(user => {
       const token = generateToken(user);
+      return token
+      
+    })
+    .then(userData,(token)=>{
+      if(token){
+      sendEmail(userData)
+            
       res.status(200).json({
         message: `Company ${company.company_name} and User ${user.email} created successfully`,
         token
-      });
-    })
+      })
+    }
+  })
     .catch(error => {
-      res.status(500).json({ message: "Unable to Sign Up New User" });
+       console.error(error.message);
     });
+
 });
 
 router.post("/login", (req, res) => {
