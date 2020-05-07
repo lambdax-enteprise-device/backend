@@ -14,7 +14,7 @@ router.post("/signup", (req, res) => {
     title: req.body.title,
     password: req.body.password
   };
-  const userData = {from:"Lambda X Enterpirse Device <test@sandbox8a329a5d78ff4cbf94fc98e636de2930.mailgun.org>",
+  const userData = {from:"Lambda X Enterprise Device <noreply@mg.mike-harley.tech>",
                     to:`${user.first_name}  <${user.email}>`,
                     subject:"Signup Conformation",
                     text:`Hello ${user.first_name},\n This is to confirm you've sucessfully signed up with Lambda X Enterprise Device\n Thank You,\n Lambda X Enterprise Device Dev Team`}

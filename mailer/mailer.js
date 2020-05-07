@@ -1,6 +1,6 @@
 require('dotenv').config('/.env')
 const mailgun = require('mailgun-js')
-const DOMAIN = "sandbox8a329a5d78ff4cbf94fc98e636de2930.mailgun.org"
+const DOMAIN = "mg.mike-harley.tech"
 const api_key = process.env.MAILER_APIKEY
 const mg = mailgun({apiKey:api_key,domain:DOMAIN});
 
