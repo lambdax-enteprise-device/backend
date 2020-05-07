@@ -8,6 +8,6 @@
 * JavaScript
 * Node.js
 * Express.js with Knex
-* SQLite3
+* PostGreSQL
 * Hosted on Heroku as a PostgreSQL database
 
