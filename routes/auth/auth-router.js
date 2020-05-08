@@ -27,15 +27,16 @@ router.post("/signup", (req, res) => {
       return token
       
     })
-    .then(userData,(token)=>{
-      if(token){
+    .then((token)=>{
+    
       sendEmail(userData)
             
       res.status(200).json({
         message: `Company ${company.company_name} and User ${user.email} created successfully`,
         token
       })
-    }
+    
+    
   })
     .catch(error => {
        console.error(error.message);
