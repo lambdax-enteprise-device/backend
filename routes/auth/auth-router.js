@@ -14,6 +14,11 @@ router.post("/signup", (req, res) => {
     title: req.body.title,
     password: req.body.password
   };
+  /** UserData passed to the sendEmail function 
+      to, subject and text can be changed without breaking
+      from can be changed except the domain name ex. {from: Any Name You Want <anyNameHereWillWork@-------->mg.mike-harley.com<----- changing that will break the function} 
+
+  */
   const userData = {from:"Lambda X Enterprise Device <noreply@mg.mike-harley.tech>",
                     to:`${user.first_name}  <${user.email}>`,
                     subject:"Signup Conformation",
