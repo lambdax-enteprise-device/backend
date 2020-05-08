@@ -1,4 +1,4 @@
-require("dotenv").config();
+require("dotenv").config('./env');
 // Update with your config settings.
 
 module.exports = {
@@ -23,11 +23,8 @@ module.exports = {
   },
   testing: {
     client: "pg",
-    connection: {
-      database: process.env.DB_TEST,
-      user: process.env.DB_TEST_USER,
-      password: process.env.DB_TEST_PASSWORD
-    },
+     connection: process.env.DATABASE_URL,
+    
     pool: {
       min: 2,
       max: 10
