@@ -13,6 +13,7 @@ router.get("/", (req, res) => {
     });
 });
 
+
 router.post("/company", (req, res) => {
   const { company } = req.body;
   Users.findUsersByCompany(company)

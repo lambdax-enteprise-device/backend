@@ -64,8 +64,9 @@ router.post("/login", (req, res) => {
       }
     })
     .catch(error => {
-      res.status(500).json({ message: "Server Error: Unable to Login" });
+      res.status(500).json({ message: "Server Error: Unable to Login" ,error:error});
     });
 });
+
 
 module.exports = router;

@@ -5,7 +5,8 @@ module.exports = {
   findUsersByCompany,
   findById,
   add,
-  update
+  update,
+  findByEmail
 };
 
 function findAllUsers() {
@@ -22,9 +23,7 @@ function findUsersByCompany(company) {
 }
 
 function findById(id) {
-  return db("users")
-    .where({ id })
-    .first();
+  return db("users").select('*').where('id', '=', id).orderBy('id', 'desc');
 }
 
 async function add(user) {
@@ -34,9 +33,16 @@ async function add(user) {
 }
 
 async function update(id, changes) {
-  await db("users")
-    .update(changes)
-    .where({ id });
+  console.log(id)
+  await db("users").update(changes).where("id", "=", id);
 
   return findById(id);
+}
+
+
+function findByEmail(emailAddress) {
+  return db('users')
+    .where('users.email', '=', emailAddress)
+    .first()
+
 }
