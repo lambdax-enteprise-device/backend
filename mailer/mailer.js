@@ -14,5 +14,14 @@ return mg.messages().send(userData,function (error,body){
    return  console.log(body)
 })
 }
+/** This function is called in auth-router/resetPassWord/reset-password.router
+     It sends a one time password reset link to the user after node confirms the 
+     user exists in the DB    */
+function sendPasswordReset(userData){
+    return mg.messages().send(userData,function (error,body){
+        if (error) {console.log(error.message)}
+        return console.log(body)
+    })
+}
 
-module.exports = sendEmail
+module.exports = {sendEmail,sendPasswordReset}

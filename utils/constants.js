@@ -6,5 +6,6 @@ const sevenDayCookie = {
   httpOnly: true,
   sameSite: false
 };
-
-module.exports = sevenDayCookie;
+const localUrl = 'http://localhost:4545'
+const stagingUrl = 'https://enterprise-devices-staging.herokuapp.com'
+module.exports = {sevenDayCookie,localUrl,stagingUrl};
