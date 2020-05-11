@@ -4,10 +4,13 @@ const jwt = require('jsonwebtoken')
 const db = require('../../../data-models/users/users-model')
 const jwtSecret = require('../../../utils/secrets')
 const bcrypt = require('bcrypt')
-const mg = require('mailgun-js')
 const sendPasswordReset = require('../../../mailer/mailer')
 router.use(bodyParser.urlencoded({ extended: false }))
 
+
+/** Get request returns a form for the user to enter email to start the 
+ *  reset process. This will be moved to the FE 
+ */
 router.get('/forgotpassword', (req, res) => {
     res.send(`<form action="/passwordreset" method="POST">` +
         `<input type="email" name="email" value="" placeholder="Enter Your Email Address..."/>` +
@@ -15,7 +18,11 @@ router.get('/forgotpassword', (req, res) => {
         `</form>`)
 })
 
-
+/**
+   This function takes the email address submitted by the user and 
+   finds it in the DataBase. If found an email is sent to the user with 
+a jwt embeded in the URL. If not found an error message is returned .
+ */
 router.post('/passwordreset', (req, res) => {
 
     if (req.body.email !== undefined) {
@@ -45,6 +52,13 @@ router.post('/passwordreset', (req, res) => {
         res.send('Email address is missing')
     }
 })
+
+/**
+ * This will be the url sent in the email.
+ * When accessed we check to make sure the token is valid
+ * if so we send the last form in the process where the user 
+ * updates the password
+ */
 router.get(`/resetpassword/:id/:token`, (req, res) => {
     const id = req.params.id
     const token = req.params.token
@@ -61,6 +75,10 @@ router.get(`/resetpassword/:id/:token`, (req, res) => {
                 `</form>`);
         });
 })
+
+/**
+ * Here we take the new password hash it and update the database
+ */
 router.post('/resetpassword', async (req, res) => {
 
     const id = req.body.id
