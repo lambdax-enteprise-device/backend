@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 const sendEmail = require('../../mailer/mailer')
 const Auth = require("../../data-models/auth/auth-model.js");
 const generateToken = require("../../utils/auth/generateToken.js");
-
+const  { sevenDayCookie } = require('../../utils/constants')
 //! Primary signup endpoint. Creates new company and first user
 router.post("/signup", (req, res) => {
   const company = { company_name: req.body.company_name };
@@ -56,15 +56,23 @@ router.post("/login", (req, res) => {
       if (user && bcrypt.compareSync(password, user.password)) {
         const token = generateToken(user);
         res.status(200).json({
-          message: `Welcome ${user.first_name}`,
-          token
+          message: "Login Success",
+          user:{
+            companyId:user.company_id,
+            id:user.id,
+            email:user.email,
+            firstName:user.first_name,
+            lastName:user.last_name,
+            title:user.title
+          },
+          token:token,
         });
       } else {
         res.status(401).json({ message: "Email or password incorrect" });
       }
     })
     .catch(error => {
-      res.status(500).json({ message: "Server Error: Unable to Login" ,error:error});
+      res.status(500).json({ message: "Server Error: Unable to Login" ,error:error.message});
     });
 });
 
