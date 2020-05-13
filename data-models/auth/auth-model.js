@@ -18,14 +18,14 @@ async function signUp(company, user) {
   const [groupId] = await db("groups").insert(
     {
       company_id: companyId,
-      group_name: "Administrators"
+      group_name: "Admins"
     },
     "id"
   );
   const [roleId] = await db("roles").insert(
     {
       company_id: companyId,
-      name: "Administrators",
+      name: "Admin",
       description:
         "Role used for Administrators of company. Full permissions given",
       assignment: "Company",
@@ -53,8 +53,8 @@ async function signUp(company, user) {
   return user;
 }
 
-async function login(filter) {
+async function login(email) {
   return db("users")
-    .where(filter)
+    .where("email","=",email)
     .first();
 }

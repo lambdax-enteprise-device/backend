@@ -5,6 +5,18 @@ const Companies = require("../../data-models/companies/company-model.js");
 //* Create Company moved to Auth endpoints
 
 // Get all users
+/**
+ * @api {get} /api/companies Get a list of companies
+ * @apiName  findAllCompanies
+ * @apiGroup Companies
+ *
+ * 
+ *
+ * @apiSuccess {Array}  List of companies
+ 
+ 
+ * 
+ */
 router.get("/", (req, res) => {
   Companies.findAllCompanies()
     .then(companies => {

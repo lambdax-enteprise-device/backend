@@ -16,9 +16,9 @@ function findAllUsers() {
 function findUsersByCompany(company) {
   return (
     db("users")
-      // .select("first_name", "last_name")
+       .select("first_name", "last_name")
       .innerJoin("companies", "users.company_id", "companies.id")
-      .where({ company_name: company })
+      .where( "companies.company_name","=",company )
   );
 }
 

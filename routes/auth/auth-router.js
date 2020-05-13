@@ -5,7 +5,22 @@ const Auth = require("../../data-models/auth/auth-model.js");
 const generateToken = require("../../utils/auth/generateToken.js");
 const  { sevenDayCookie } = require('../../utils/constants')
 //! Primary signup endpoint. Creates new company and first user
+/**
+ * @api {post}  /api/auth/signup New admin signup
+ * @apiName signup
+ * @apiGroup Admin
+ * 
+ * @apiParam {String} email user email
+ * @apiParam {String} password user password 
+ * @apiParam {String} first_name 
+ * @apiParam {String} last_name
+ * @apiParam {String}  title
+ * 
+ * @apiSuccess {String} welcome_message 
+ * @apiSuccess {String} jwt json web token
+ */
 router.post("/signup", (req, res) => {
+ 
   const company = { company_name: req.body.company_name };
   const user = {
     email: req.body.email,
@@ -17,8 +32,9 @@ router.post("/signup", (req, res) => {
   /** UserData passed to the sendEmail function 
       to, subject and text can be changed without breaking
       from can be changed except the domain name ex. {from: Any Name You Want <anyNameHereWillWork@-------->mg.mike-harley.com<----- changing that will break the function} 
-
+         
   */
+ 
   const userData = {from:"Lambda X Enterprise Device <noreply@mg.mike-harley.tech>",
                     to:`${user.first_name}  <${user.email}>`,
                     subject:"Signup Conformation",
@@ -33,25 +49,41 @@ router.post("/signup", (req, res) => {
       
     })
     .then((token)=>{
-    
-      sendEmail(userData)
+  
+      sendEmail.sendEmail(userData)
             
       res.status(200).json({
         message: `Company ${company.company_name} and User ${user.email} created successfully`,
         token
       })
+  
     
     
   })
     .catch(error => {
-       console.error(error.message);
+         res.status(400).json({message:error.message});
     });
 
 });
 
+/**
+ * @api {post}  /api/auth/login Admin login
+ * @apiName login
+ * @apiGroup Admin
+ * 
+ * @apiParam {String} email
+ * @apiParam {String} password
+ * 
+ * @apiSuccess {String} welcome_message 
+ * @apiSuccess {String} jwt json web token
+ * 
+ * 
+ */
 router.post("/login", (req, res) => {
-  const { email, password } = req.body;
-  Auth.login({ email })
+   console.log(req.body.email)
+  const email = req.body.email
+  const password = req.body.password
+  Auth.login(req.body.email)
     .then(user => {
       if (user && bcrypt.compareSync(password, user.password)) {
         const token = generateToken(user);
@@ -72,7 +104,8 @@ router.post("/login", (req, res) => {
       }
     })
     .catch(error => {
-      res.status(500).json({ message: "Server Error: Unable to Login" ,error:error.message});
+      console.error(error)
+      res.status(500).json({ message: "Server Error: Unable to Login" ,error:error});
     });
 });
 
