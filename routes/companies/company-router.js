@@ -4,15 +4,15 @@ const Companies = require("../../data-models/companies/company-model.js");
 
 //* Create Company moved to Auth endpoints
 
-// Get all users
-/**
- * @api {get} /api/companies Get a list of companies
- * @apiName  findAllCompanies
- * @apiGroup Companies
- *
+
+/** @api {get}  /api/companies Get a list of all companies
+ * @apiName Companies
+ * @apiGroup Admin
+ * @apiPermission Admin
  * 
- *
- * @apiSuccess {Array}  List of companies
+
+ * @apiSuccess {String} Company_List an array of companies 
+ 
  
  
  * 
@@ -29,6 +29,14 @@ router.get("/", (req, res) => {
     });
 });
 
+/**@api {get}  /api/companies/:id Get a compnay by Id
+ *@apiPermission Admin
+*@apiName Companies
+*@apiGroup Admin
+*@apiParam {Number} id Company id 
+*@apiHeader {String} Bearer_Token auth token 
+*@apiSuccess {String} Company Returns the company matching the id
+*/
 router.get("/:id", (req, res) => {
   const { id } = req.params;
 
@@ -41,6 +49,16 @@ router.get("/:id", (req, res) => {
     });
 });
 
+/**@api {put} /api/companies/:id Update a company by id 
+ @apiPermission Admin
+*@apiName Companies
+*@apiGroup Admin
+*@apiParam {Number} id Company id 
+ @apiParam {String} Updates The infomation you want changed. Entered in the body
+*@apiHeader {String} Bearer_Token auth token 
+*@apiSuccess {String} Updated_Company Returns the company updated id
+ * 
+ */
 router.put("/:id", (req, res) => {
   const { id } = req.params;
 
