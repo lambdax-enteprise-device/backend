@@ -11,6 +11,7 @@ const deviceTypesRouter = require("../routes/devices/deviceTypes-router.js");
 const authRouter = require("../routes/auth/auth-router.js");
 const userDevicesRouter = require("../routes/users_devices/users_devices-router.js")
 const passwordRouter = require('../routes/auth/resetPassword/reset-password.router')
+
 const server = express();
 
 function logger(req, res, next) {
@@ -19,6 +20,9 @@ function logger(req, res, next) {
   console.log(`There was a ${method} on ${url} @${Date.now()}`);
   next();
 }
+
+
+
 server.use(logger)
 server.use(express.json());
 server.use(helmet());
@@ -33,8 +37,11 @@ server.use("/api/mfgs", manufacturersRouter);
 server.use("/api/device_types", deviceTypesRouter);
 server.use("/api/user_devices", userDevicesRouter);
 server.use("/api/auth/password", passwordRouter)
+
 server.get("/", (req, res) => {
   return res.json({ message: "Server is up" });
 });
 
-module.exports = server;
+
+
+module.exports = server

@@ -3,6 +3,7 @@ const router = require("express").Router();
 const Groups = require("../../data-models/groups/groups-model.js");
 
 // Get all Groups
+
 router.get("/", (req, res) => {
   Groups.findAllGroups()
     .then(groups => {

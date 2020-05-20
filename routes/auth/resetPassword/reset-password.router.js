@@ -12,13 +12,15 @@ router.use(bodyParser.urlencoded({ extended: false }))
 /** Get request returns a form for the user to enter email to start the 
  *  reset process. This will be moved to the FE 
  */
+
+ 
 router.get('/forgotpassword', (req, res) => {
     res.send(`<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
          <h2 style="text-align:center">Reset Your Password</h2>
-        <form  className="form-group" action="https://enterprise-devices-staging.herokuapp.com/api/auth/password/passwordreset" method="POST">` +
+        <form  className="form-group" action="https://enterprise-devices-testing.herokuapp.com/api/auth/password/passwordreset" method="POST">` +
         `<input style="width:15rem ; margin-left:500px ; margin-top:200px" className="form-control" type="email" name="email" value="" placeholder="Enter Your Email Address..."/>` +
         `<input className="btn btn-primary" type="submit" value="Reset Password" />` +
         `</form>`)
@@ -49,7 +51,7 @@ router.post('/passwordreset', async (req, res) => {
                     to: `${payload.email} <${payload.email}>`,
                     subject: "Password Reset",
                     text: `Hello ${payload.email},\n Your password reset link is below. \n This is a one time only link good for 1 hour.\n`
-                    , html: `<a href="https://enterprise-devices-staging/api/auth/password/resetpassword/` + payload.id + '/' + token + `">Reset password</a>`
+                    , html: `<a href="https://enterprise-devices-testing/api/auth/password/resetpassword/` + payload.id + '/' + token + `">Reset password</a>`
                 }
             await    sendPasswordReset.sendPasswordReset(userData)
              return    res.status(201).json('Email Sent')
@@ -74,7 +76,7 @@ router.get(`/resetpassword/:id/:token`, (req, res) => {
             const secret = response.password + '-' + response[0].created_at.getTime()
             const payload = jwt.decode(token, secret)
             res.send('<h1 style="text-align:center">New Password</h1>'+
-                   '<form className="reset" action="/api/auth/password/resetpassword" method="POST">' +
+                   '<form className="reset" action="https://enterprise-devices-testing.herokuapp.com/api/auth/password/resetpassword" method="POST">' +
                       '<input  name="id" type="hidden" value="' + response[0].id + '" />' +
                 '<input type="hidden" name="token" value="' + req.params.token + '" />' +
                 '<input style="margin-left:530px ; margin-top:250px;size:lg;width:20rem;height:2rem" type="password" name="password" value="" placeholder="Enter your new password..." />' +
