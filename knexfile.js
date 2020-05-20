@@ -22,12 +22,9 @@ module.exports = {
     useNullAsDefault: true
   },
   testing: {
-    client: "postgresql",
-    connection: {
-      database: process.env.DB_TEST,
-      user: process.env.DB_TEST_USER,
-      password: process.env.DB_TEST_PASSWORD
-    },
+    client: "pg",
+     connection: process.env.DATABASE_URL,
+    
     pool: {
       min: 2,
       max: 10
