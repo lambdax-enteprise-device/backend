@@ -40,7 +40,7 @@ module.exports = {
     useNullAsDefault: true
   },
   production: {
-    client: pg,
+    client: "pg",
     connection: process.env.DATABASE_URL,
     // || {
     //   database: process.env.DB,
