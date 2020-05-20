@@ -6,8 +6,8 @@ const generateToken = require("../../utils/auth/generateToken.js");
 const  { sevenDayCookie } = require('../../utils/constants')
 //! Primary signup endpoint. Creates new company and first user
 /**
- * @api {post}  /api/auth/signup New admin signup
- * @apiName signup
+ * @api {post}  /api/auth/signup Signup
+ * @apiName Auth
  * @apiGroup Admin
  * 
  * @apiParam {String} email user email
@@ -15,7 +15,20 @@ const  { sevenDayCookie } = require('../../utils/constants')
  * @apiParam {String} first_name 
  * @apiParam {String} last_name
  * @apiParam {String}  title
- * 
+ * @apiExample {json} Example Body:
+{
+  "email":"info@mike-harley.tech",
+	"password":"test123",
+	"first_name":"Mike",
+	"last_name":"Harley",
+	"title":"Tester",
+  "company_name":"test"
+}
+@apiParamExample {json} Example Return: 
+{
+  "message": "Company test and User info@mike-harley.tech created successfully",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjI2LCJ1c2VybmFtZSI6ImluZm9AbWlrZS1oYXJsZXkudGVjaCIsImlhdCI6MTU4OTM2ODUzMiwiZXhwIjoxNTg5OTczMzMyfQ.jPWuzSMUw65IfPg-cvmypJJF-mGBtSQ7k4h-c7B8UJw"
+}
  * @apiSuccess {String} welcome_message 
  * @apiSuccess {String} jwt json web token
  */
@@ -67,20 +80,31 @@ router.post("/signup", (req, res) => {
 });
 
 /**
- * @api {post}  /api/auth/login Admin login
- * @apiName login
+ * @api {post}  /api/auth/login Login
+ * @apiName Auth
  * @apiGroup Admin
  * 
  * @apiParam {String} email
  * @apiParam {String} password
- * 
+* @apiParamExample {json} Example Return:
+ * {
+  "message": "Login Success",
+  "user": {
+    "companyId": 28,
+    "id": 26,
+    "email": "info@mike-harley.tech",
+    "firstName": "Mike",
+    "lastName": "Harley",
+    "title": "Admins"
+  },
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjI2LCJ1c2VybmFtZSI6ImluZm9AbWlrZS1oYXJsZXkudGVjaCIsImlhdCI6MTU4OTkyOTcxNywiZXhwIjoxNTkwNTM0NTE3fQ.hdbEfVTLSgJh616OhEs54J7bYaaObhtppQqCdf0Z7MQ"
+}
  * @apiSuccess {String} welcome_message 
  * @apiSuccess {String} jwt json web token
  * 
- * 
  */
 router.post("/login", (req, res) => {
-   console.log(req.body.email)
+
   const email = req.body.email
   const password = req.body.password
   Auth.login(req.body.email)

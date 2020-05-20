@@ -11,27 +11,16 @@ const deviceTypesRouter = require("../routes/devices/deviceTypes-router.js");
 const authRouter = require("../routes/auth/auth-router.js");
 const userDevicesRouter = require("../routes/users_devices/users_devices-router.js")
 const passwordRouter = require('../routes/auth/resetPassword/reset-password.router')
-const fs = require('fs')
-const http = require('http')
+
 const server = express();
-const path = require('path')
+
 function logger(req, res, next) {
   const url = req.url;
   const method = req.method;
   console.log(`There was a ${method} on ${url} @${Date.now()}`);
   next();
 }
-const app = http.createServer(function (req,res){
-  fs.readFile(__filename + req.url, function (err,data) {
-    if (err) {
-      res.writeHead(404);
-      res.end(JSON.stringify(err))
-      return
-    }
-    res.writeHead(200)
-    res.end(data)
-  })
-}).listen(8080)
+
 
 
 server.use(logger)
@@ -55,4 +44,4 @@ server.get("/", (req, res) => {
 
 
 
-module.exports = server,app
+module.exports = server

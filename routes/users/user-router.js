@@ -3,6 +3,16 @@ const router = require("express").Router();
 const Users = require("../../data-models/users/users-model.js");
 
 // Get all users
+/**@api {get}  /api/users  Get users
+ *
+ * @apiName Users
+ * @apiPermission Admin
+ * @apiGroup Admin
+ * 
+ *@apiUse Token
+ *
+ *@apiSuccess {string} Users A list of users
+*/
 router.get("/", (req, res) => {
   Users.findAllUsers()
     .then(users => {
@@ -13,7 +23,16 @@ router.get("/", (req, res) => {
     });
 });
 
-
+/**@api {post}  /api/users/company  Get user by company name.
+ *
+ * @apiName Users
+ * @apiPermission Admin
+ * @apiGroup Admin
+ * @apiParam {string} company The name of the company
+ *@apiUse Token
+ *
+ *@apiSuccess {object} User Returns a list of users for the company
+*/
 router.post("/company", (req, res) => {
   const { company } = req.body;
   Users.findUsersByCompany(company)
@@ -27,6 +46,22 @@ router.post("/company", (req, res) => {
     });
 });
 
+/**@api {post}  /api/users  Post Add a new user.
+ *
+ * @apiName Users
+ * @apiPermission Admin
+ * @apiGroup Admin
+ * @apiParam {string} company_id 
+ * @apiParam {string} email User email address.
+ * @apiParam {string} password User password
+ * @apiParam {string} first_name 
+ * @apiParam {string} last_name
+ * @apiParam {string} title 
+ *@apiUse Token
+ *
+ *@apiSuccess {object} Returns user object upon success
+*/
+
 // Add new Users
 router.post("/", (req, res) => {
   const user = req.body;
@@ -38,6 +73,18 @@ router.post("/", (req, res) => {
       res.status(500).json({ message: "Unable to add user" });
     });
 });
+/**
+ * @api {get}  /api/users/:id  Get user by user id.
+ *
+ * @apiName Users
+ * @apiPermission Admin
+ * @apiGroup Admin
+ * @apiParam {number} id user_id
+ *@apiUse Token
+ *
+ *@apiSuccess {object} User Returns user object.
+ */
+
 
 router.get("/:id", (req, res) => {
   const { id } = req.params;
@@ -50,7 +97,17 @@ router.get("/:id", (req, res) => {
       res.status(500).json({ message: "Unable to retrieve User" });
     });
 });
-
+/**
+ * @api {put}  /api/users/:id Update user.
+ *
+ * @apiName Users
+ * @apiPermission Admin
+ * @apiGroup Admin
+ * @apiParam {string} updates In the body in json enter any updates for the user,
+ *@apiUse Token
+ *
+ *@apiSuccess {object} User Returns updated user object.
+ */
 router.put("/:id", (req, res) => {
   const { id } = req.params;
 

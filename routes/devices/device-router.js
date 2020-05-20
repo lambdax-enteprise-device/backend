@@ -67,7 +67,19 @@ router.post("/company", (req, res) => {
         .json({ message: `Could not find devices under ${company}` });
     });
 });
-
+/**
+ *@api {post} /api/devices
+ @apiName Devices
+ @apiPermission Admin
+ @apiGroup Admin
+ @apiHeader {String} Bearer_Token jsonwebtoken
+ @apiParam {String} company The company name
+ * @apiParam {Number} company_id The company id
+ * @apiParam {Number} device_type_id The device type id
+ * @apiParam {Number} location_id the location id
+ * @apiParam {Number} manufacturer_id then manufacturer id
+ * @apiSuccess {String} Id Return a device id
+ */
 router.post("/", (req, res) => {
   const device = req.body;
   Devices.add(device)

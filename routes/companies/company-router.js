@@ -9,12 +9,28 @@ const Companies = require("../../data-models/companies/company-model.js");
  * @apiName Companies
  * @apiGroup Admin
  * @apiPermission Admin
- * 
+ * @apiParamExample {json} Example Return:
+ * [
+  {
+    "id": 1,
+    "company_name": "Enterprise Devices",
+    "active": true,
+    "created_at": "2020-04-22T17:41:27.808Z",
+    "updated_at": "2020-04-22T17:41:27.808Z"
+  },
+  {
+    "id": 2,
+    "company_name": "Test Company 2",
+    "active": true,
+    "created_at": "2020-04-22T17:41:27.808Z",
+    "updated_at": "2020-04-22T17:41:27.808Z"
+  },
+  {
+
+
+]
 
  * @apiSuccess {String} Company_List an array of companies 
- 
- 
- 
  * 
  */
 router.get("/", (req, res) => {
@@ -57,7 +73,24 @@ router.get("/:id", (req, res) => {
  @apiParam {String} Updates The infomation you want changed. Entered in the body
 *@apiHeader {String} Bearer_Token auth token 
 *@apiSuccess {String} Updated_Company Returns the company updated id
- * 
+  @apiExample {json} Example Body:
+{
+	"title":"Admins"
+}
+ *@apiParamExample {json} Example Response:
+ [
+  {
+    "id": 26,
+    "company_id": 28,
+    "email": "info@mike-harley.tech",
+    "password": "$2b$10$uoNIgzSeTmCRQoQZrpaWi.MdJgx/IvUv4eqT4wblkuwPadX2cZB3S",
+    "first_name": "Mike",
+    "last_name": "Harley",
+    "title": "Admins",
+    "created_at": "2020-05-13T11:15:31.700Z",
+    "updated_at": "2020-05-13T11:15:31.700Z"
+  }
+]
  */
 router.put("/:id", (req, res) => {
   const { id } = req.params;

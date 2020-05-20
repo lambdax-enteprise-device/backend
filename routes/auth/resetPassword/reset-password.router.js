@@ -76,7 +76,7 @@ router.get(`/resetpassword/:id/:token`, (req, res) => {
             const secret = response.password + '-' + response[0].created_at.getTime()
             const payload = jwt.decode(token, secret)
             res.send('<h1 style="text-align:center">New Password</h1>'+
-                   '<form className="reset" action="https://enterprise-devices-staging.herokuapp.com/api/auth/password/resetpassword" method="POST">' +
+                   '<form className="reset" action="https://enterprise-devices-testing.herokuapp.com/api/auth/password/resetpassword" method="POST">' +
                       '<input  name="id" type="hidden" value="' + response[0].id + '" />' +
                 '<input type="hidden" name="token" value="' + req.params.token + '" />' +
                 '<input style="margin-left:530px ; margin-top:250px;size:lg;width:20rem;height:2rem" type="password" name="password" value="" placeholder="Enter your new password..." />' +
