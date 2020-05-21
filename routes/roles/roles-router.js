@@ -2,10 +2,7 @@ const router = require("express").Router();
 
 const Roles = require("../../data-models/roles/roles-model.js");
 
-// Get all Manufacturers
-/**@api Groups /api/
- * 
- */
+
 router.get("/", (req, res) => {
   Roles.findAllGroups()
     .then(roles => {

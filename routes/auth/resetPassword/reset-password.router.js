@@ -9,11 +9,17 @@ const sendPasswordReset = require('../../../mailer/mailer')
 router.use(bodyParser.urlencoded({ extended: false }))
 
 
-/** Get request returns a form for the user to enter email to start the 
- *  reset process. This will be moved to the FE 
- */
 
- 
+
+/**
+ * @api {get} /api/auth/password/forgotpassword Change User Password
+ * @apiName Auth
+ * @apiGroup Users
+
+ * @apiSuccess {form} Password_Reset form 
+ *   
+ *
+ */
 router.get('/forgotpassword', (req, res) => {
     res.send(`<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
@@ -27,9 +33,12 @@ router.get('/forgotpassword', (req, res) => {
 })
 
 /**
-   This function takes the email address submitted by the user and 
-   finds it in the DataBase. If found an email is sent to the user with 
-a jwt embeded in the URL. If not found an error message is returned .
+ * @api {post} /api/auth/password/passwordreset Send Password
+ * @apiName Auth
+ * @apiGroup Users
+
+ * @apiError {object} Error_Object If not found an error message is returned .
+ @apiSuccess {string} Success_Message "Email Sent"
  */
 router.post('/passwordreset', async (req, res) => {
         
@@ -51,7 +60,7 @@ router.post('/passwordreset', async (req, res) => {
                     to: `${payload.email} <${payload.email}>`,
                     subject: "Password Reset",
                     text: `Hello ${payload.email},\n Your password reset link is below. \n This is a one time only link good for 1 hour.\n`
-                    , html: `<a href="https://enterprise-devices-testing/api/auth/password/resetpassword/` + payload.id + '/' + token + `">Reset password</a>`
+                    , html: `<a href="https://enterprise-devices-testing.herokuapp.com/api/auth/password/resetpassword/` + payload.id + '/' + token + `">Reset password</a>`
                 }
             await    sendPasswordReset.sendPasswordReset(userData)
              return    res.status(201).json('Email Sent')
@@ -62,10 +71,11 @@ router.post('/passwordreset', async (req, res) => {
 })
 
 /**
- * This will be the url sent in the email.
- * When accessed we check to make sure the token is valid
- * if so we send the last form in the process where the user 
- * updates the password
+ * @api {get} /api/auth/password/resetpassword/:id/:token
+ * @apiName Auth
+ * @apiGroup Users
+
+ * @apiSuccess {form} New_Password_Form Form for the user to update their password.
  */
 router.get(`/resetpassword/:id/:token`, (req, res) => {
     const id = req.params.id
@@ -85,8 +95,11 @@ router.get(`/resetpassword/:id/:token`, (req, res) => {
         });
 })
 
-/**
- * Here we take the new password hash it and update the database
+/** @api {post} /api/auth/password/resetpassword
+@apiName Auth
+@apiGroup Users
+
+@apiSuccess {json} Updated_User_Object Send the user object back with the updated hashed password/
  */
 router.post('/resetpassword', async (req, res) => {
 
