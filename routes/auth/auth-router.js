@@ -14,13 +14,15 @@ const  { sevenDayCookie } = require('../../utils/constants')
  * @apiParam {String} password user password 
  * @apiParam {String} first_name 
  * @apiParam {String} last_name
+ * @apiParam {boolean} isVerified
  * @apiParam {String}  title
  * @apiExample {json} Example Body:
 {
   "email":"info@mike-harley.tech",
 	"password":"test123",
 	"first_name":"Mike",
-	"last_name":"Harley",
+  "last_name":"Harley",
+   "isVerified":"false"
 	"title":"Tester",
   "company_name":"test"
 }
@@ -39,16 +41,17 @@ router.post("/signup", (req, res) => {
     email: req.body.email,
     first_name: req.body.first_name,
     last_name: req.body.last_name,
+    isVerified:false,
     title: req.body.title,
     password: req.body.password
   };
   /** UserData passed to the sendEmail function 
       to, subject and text can be changed without breaking
-      from can be changed except the domain name ex. {from: Any Name You Want <anyNameHereWillWork@-------->mg.mike-harley.com<----- changing that will break the function} 
+      from can be changed except the domain name ex. {from: Any Name You Want <anyNameHereWillWork@-------->support.enterprise-devices.com<----- changing that will break the function} 
          
   */
  
-  const userData = {from:"Lambda X Enterprise Device <noreply@mg.mike-harley.tech>",
+  const userData = {from:"Lambda X Enterprise Devices <developers@support.enterprise-devices.com>",
                     to:`${user.first_name}  <${user.email}>`,
                     subject:"Signup Conformation",
                     text:`Hello ${user.first_name},\n This is to confirm you've sucessfully signed up with Lambda X Enterprise Device\n Thank You,\n Lambda X Enterprise Device Dev Team`}

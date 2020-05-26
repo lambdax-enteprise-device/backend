@@ -56,7 +56,7 @@ router.post('/passwordreset', async (req, res) => {
                 const link = "<a href=`/resetpassword/` + payload.id + '/' + token + " > `Reset Password</a>`
 
                 const userData = {
-                    from: "Enterprise Device <noreply@mg.mike-harley.tech>",
+                    from: "Enterprise Device <developers@support.enterprise-devices.com>",
                     to: `${payload.email} <${payload.email}>`,
                     subject: "Password Reset",
                     text: `Hello ${payload.email},\n Your password reset link is below. \n This is a one time only link good for 1 hour.\n`
