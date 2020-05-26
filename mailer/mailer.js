@@ -23,17 +23,5 @@ function sendPasswordReset(userData){
         return console.log(body)
     })
 }
-/** This function is called when a new user signs up before the welcome email is sent. 
- * This function verifies that the email belongs to the user and that the user actually signed up for the account. 
- * We will create the user with an isVerified attribute set to false. As long as that is false the user will not be able to login.
- * We send a link with an embedded jwt to the email address. The user clicks on the link and if the secret key and user id match the
- * isVerified changes to true and the user is able to login.
- * */
-function sendIsVerifiedEmail(userdata){
-    return mg.messages().send(userdata,function( error, body){
-        if(error) {console.log(error.message)}
-        return body 
-    } )
-}
 
-module.exports = {sendEmail,sendPasswordReset,sendIsVerifiedEmail}
+module.exports = {sendEmail,sendPasswordReset}
