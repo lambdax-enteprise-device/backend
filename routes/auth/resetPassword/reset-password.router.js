@@ -33,7 +33,7 @@ router.get('/forgotpassword', (req, res) => {
 })
 
 /**
- * @api {post} /api/auth/password/passwordreset Send Password
+ * @api {post} /api/auth/password/passwordreset Request To Reset User Password
  * @apiName Auth
  * @apiGroup Users
 
@@ -71,7 +71,7 @@ router.post('/passwordreset', async (req, res) => {
 })
 
 /**
- * @api {get} /api/auth/password/resetpassword/:id/:token
+ * @api {get} /api/auth/password/resetpassword/:id/:token Reset Password Form
  * @apiName Auth
  * @apiGroup Users
 
@@ -95,7 +95,7 @@ router.get(`/resetpassword/:id/:token`, (req, res) => {
         });
 })
 
-/** @api {post} /api/auth/password/resetpassword
+/** @api {post} /api/auth/password/resetpassword Send New User Password
 @apiName Auth
 @apiGroup Users
 

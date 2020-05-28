@@ -17,7 +17,7 @@ const { sevenDayCookie } = require('../../utils/constants')
  * @apiParam {String} password user password 
  * @apiParam {String} first_name 
  * @apiParam {String} last_name
- * @apiParam {boolean} isVerified
+ * @apiParam {boolean} isVerified Defaults to false 
  * @apiParam {String}  title
  * @apiExample {json} Example Body:
 {
@@ -31,11 +31,11 @@ const { sevenDayCookie } = require('../../utils/constants')
 }
 @apiParamExample {json} Example Return: 
 {
-  "message": "Company test and User info@mike-harley.tech created successfully",
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjI2LCJ1c2VybmFtZSI6ImluZm9AbWlrZS1oYXJsZXkudGVjaCIsImlhdCI6MTU4OTM2ODUzMiwiZXhwIjoxNTg5OTczMzMyfQ.jPWuzSMUw65IfPg-cvmypJJF-mGBtSQ7k4h-c7B8UJw"
+  "message": "Company test and User info@mike-harley.tech created successfully.Please check your email",
+ 
 }
  * @apiSuccess {String} welcome_message 
- * @apiSuccess {String} jwt json web token
+ * 
  */
 router.post("/signup", (req, res) => {
   const num = Math.floor((Math.random() * 100) + 54)
@@ -73,7 +73,7 @@ router.post("/signup", (req, res) => {
         to: `${user.first_name}  <${user.email}>`,
         subject: "Signup Conformation",
         html: `<p Hello ${user.first_name},\n This is to confirm you signed up with Lambda X Enterprise Devices\n Please verify your email by clicking the link below.\n Thank You,\n Lambda X Enterprise Device Dev Team` +
-          `<a href="http://localhost:4545/api/auth/signup/` + token + `">Confirm Email</a></p>`
+          `<a href="https://enterprise-devices-testing.herokuapp.com/api/auth/signup/` + token + `">Confirm Email</a></p>`
       }
       sendEmail.sendEmail(userData)
 
@@ -111,7 +111,7 @@ router.post("/signup", (req, res) => {
   },
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjI2LCJ1c2VybmFtZSI6ImluZm9AbWlrZS1oYXJsZXkudGVjaCIsImlhdCI6MTU4OTkyOTcxNywiZXhwIjoxNTkwNTM0NTE3fQ.hdbEfVTLSgJh616OhEs54J7bYaaObhtppQqCdf0Z7MQ"
 }
- * @apiSuccess {String} welcome_message 
+ * @apiSuccess {String} Ok  "Login Success"
  * @apiSuccess {String} jwt json web token
  * 
  */
@@ -144,6 +144,15 @@ router.post("/login", (req, res) => {
       res.status(500).json({ message: "Server Error: Unable to Login", error: error });
     });
 });
+
+/**@api {get} /signup/:token Email Verification Endpoint
+ * @apiName Auth
+ * @apiGroup Users
+ * @apiDescription Url sent via verification email to new user. Url is only valid 24 hours. It takes the from the url and compares it to the token stored in the DB.
+ * @apiSuccess Ok Returns a success message and deletes the token from the DB
+ * @apiError  Unauthorized "Please Verify Your Email"
+ * 
+ */
 router.get('/signup/:token', async (req, res) => {
 
 
@@ -152,7 +161,7 @@ router.get('/signup/:token', async (req, res) => {
   const decodedToken = jwt.verify(token, secret.jwtSecret, (err, decodedToken) => {
 
     if (err) {
-      res.status(401).json({ message: 'Unable to verify login' })
+      res.status(401).json({ message: 'Please Verify Your Email' })
     } else {
       req.jwtToken = decodedToken
       return decodedToken
