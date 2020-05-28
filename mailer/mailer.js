@@ -1,7 +1,7 @@
 // Creds for mail api 
 require('dotenv').config('/.env')
 const mailgun = require('mailgun-js')
-const DOMAIN = "mg.mike-harley.tech"
+const DOMAIN = "support.enterprise-devices.com"
 const api_key = process.env.MAILER_APIKEY
 const mg = mailgun({apiKey:api_key,domain:DOMAIN});
 

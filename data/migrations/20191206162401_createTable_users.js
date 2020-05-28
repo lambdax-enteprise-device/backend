@@ -18,6 +18,7 @@ exports.up = function(knex) {
     tbl.string("last_name").notNullable();
     tbl.string("title");
     tbl.timestamps(true, true);
+  
     tbl.unique(["company_id", "email"]);
   });
 };

@@ -57,6 +57,7 @@ router.post("/company", (req, res) => {
  * @apiParam {string} first_name 
  * @apiParam {string} last_name
  * @apiParam {string} title 
+ * @apiParam {boolean} isVerified 
  *@apiUse Token
  *
  *@apiSuccess {object} Returns user object upon success

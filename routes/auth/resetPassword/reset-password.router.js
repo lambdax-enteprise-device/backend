@@ -33,7 +33,7 @@ router.get('/forgotpassword', (req, res) => {
 })
 
 /**
- * @api {post} /api/auth/password/passwordreset Send Password
+ * @api {post} /api/auth/password/passwordreset Request To Reset User Password
  * @apiName Auth
  * @apiGroup Users
 
@@ -41,10 +41,10 @@ router.get('/forgotpassword', (req, res) => {
  @apiSuccess {string} Success_Message "Email Sent"
  */
 router.post('/passwordreset', async (req, res) => {
-        
+
     if (req.body.email !== undefined) {
         const emailAddress = req.body.email
-      await  db.findByEmail(emailAddress)
+        await db.findByEmail(emailAddress)
             .then(async (response) => {
                 const id = response.id
                 const payload = {
@@ -56,14 +56,14 @@ router.post('/passwordreset', async (req, res) => {
                 const link = "<a href=`/resetpassword/` + payload.id + '/' + token + " > `Reset Password</a>`
 
                 const userData = {
-                    from: "Enterprise Device <noreply@mg.mike-harley.tech>",
+                    from: "Enterprise Device <developers@support.enterprise-devices.com>",
                     to: `${payload.email} <${payload.email}>`,
                     subject: "Password Reset",
                     text: `Hello ${payload.email},\n Your password reset link is below. \n This is a one time only link good for 1 hour.\n`
                     , html: `<a href="https://enterprise-devices-testing.herokuapp.com/api/auth/password/resetpassword/` + payload.id + '/' + token + `">Reset password</a>`
                 }
-            await    sendPasswordReset.sendPasswordReset(userData)
-             return    res.status(201).json('Email Sent')
+                await sendPasswordReset.sendPasswordReset(userData)
+                return res.status(201).json('Email Sent')
             })
     } else {
         res.send('Email address is missing')
@@ -71,7 +71,7 @@ router.post('/passwordreset', async (req, res) => {
 })
 
 /**
- * @api {get} /api/auth/password/resetpassword/:id/:token
+ * @api {get} /api/auth/password/resetpassword/:id/:token Reset Password Form
  * @apiName Auth
  * @apiGroup Users
 
@@ -82,12 +82,12 @@ router.get(`/resetpassword/:id/:token`, (req, res) => {
     const token = req.params.token
     db.findById(id)
         .then((response) => {
-         
+
             const secret = response.password + '-' + response[0].created_at.getTime()
             const payload = jwt.decode(token, secret)
-            res.send('<h1 style="text-align:center">New Password</h1>'+
-                   '<form className="reset" action="https://enterprise-devices-testing.herokuapp.com/api/auth/password/resetpassword" method="POST">' +
-                      '<input  name="id" type="hidden" value="' + response[0].id + '" />' +
+            res.send('<h1 style="text-align:center">New Password</h1>' +
+                '<form className="reset" action="https://enterprise-devices-testing.herokuapp.com/api/auth/password/resetpassword" method="POST">' +
+                '<input  name="id" type="hidden" value="' + response[0].id + '" />' +
                 '<input type="hidden" name="token" value="' + req.params.token + '" />' +
                 '<input style="margin-left:530px ; margin-top:250px;size:lg;width:20rem;height:2rem" type="password" name="password" value="" placeholder="Enter your new password..." />' +
                 `<input  style="height:2rem" type="submit" value="Reset Password" />` +
@@ -95,7 +95,7 @@ router.get(`/resetpassword/:id/:token`, (req, res) => {
         });
 })
 
-/** @api {post} /api/auth/password/resetpassword
+/** @api {post} /api/auth/password/resetpassword Send New User Password
 @apiName Auth
 @apiGroup Users
 
