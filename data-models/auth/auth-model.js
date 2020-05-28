@@ -12,8 +12,8 @@ async function signUp(company, user) {
   const [companyId] = await db("companies").insert(company, "id");
   user["company_id"] = companyId;
 
-  const [userId] = await db("users").insert(user, "id");
-
+  const [userId] = await db("users").insert(user,"id");
+  
   //* Creation of Administrators group and role, assign user to group and group to role
   const [groupId] = await db("groups").insert(
     {
