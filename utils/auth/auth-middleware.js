@@ -1,10 +1,12 @@
 const jwt = require('jsonwebtoken');
-const secret = require('../config/secrets.js');
+const secret = require('../secrets');
 
 module.exports = function(req, res, next) {
     const token = req.headers.authorization
-
-    if(token) {
+     if(!token){
+         res.status(401).json("Please Login")
+     }
+   else if(token) {
         jwt.verify(token, secret.jwtSecret, (err, decodedToken) => {
             if(err) {
                 res.status(401).json({ message: 'Unable to verify login'})

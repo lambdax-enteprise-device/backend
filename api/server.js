@@ -11,7 +11,7 @@ const deviceTypesRouter = require("../routes/devices/deviceTypes-router.js");
 const authRouter = require("../routes/auth/auth-router.js");
 const userDevicesRouter = require("../routes/users_devices/users_devices-router.js")
 const passwordRouter = require('../routes/auth/resetPassword/reset-password.router')
-
+const authMiddleWare = require("../utils/auth/auth-middleware")
 const server = express();
 
 function logger(req, res, next) {

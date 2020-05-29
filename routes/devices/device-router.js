@@ -12,6 +12,7 @@ const Devices = require("../../data-models/devices/devices-model.js");
  * 
  */
 router.get("/", (req, res) => {
+  console.log(req)
     Devices.findAllDevices()
     .then(devices => {
       res.status(200).json(devices);
