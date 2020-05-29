@@ -9,13 +9,15 @@ module.exports = {
 //* Add Company moved to Auth Model
 
 function findAllCompanies() {
-  return db("companies");
+  return db("companies")
+        
 }
 
 function findById(id) {
   return db("companies")
-    .where({ id })
-    .first();
+        .innerJoin("company_locations as cl","companies.id","cl.company_id")
+        .where(id,'=','cl.company_id')
+        .first();
 }
 
 async function update(id, changes) {

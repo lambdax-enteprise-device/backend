@@ -11,7 +11,8 @@ module.exports = {
 };
 
 function findAllDevices() {
-  return db("devices");
+  return db("devices")
+          .orderBy('company_id',"desc")
 }
 
 function findDevicesByCompany(company) {
@@ -24,7 +25,11 @@ function findDevicesByCompany(company) {
 }
 
 function findDevicesByCompanyId(id) {
-  return db("devices").where({ company_id: id });
+  return db("devices")
+         .select('*')
+          
+        .where({ company_id: id })
+        .orderBy("company_id","desc")
 }
 
 function findById(id) {
