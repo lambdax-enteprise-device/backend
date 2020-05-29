@@ -6,6 +6,7 @@ const Db = require("../../data-models/users/users-model")
 const generateToken = require("../../utils/auth/generateToken.js");
 const jwt = require('jsonwebtoken')
 const secret = require('../../utils/secrets')
+const confirmEmail = require('../../mailer/mailer')
 const { sevenDayCookie } = require('../../utils/constants')
 //! Primary signup endpoint. Creates new company and first user
 /**
@@ -66,18 +67,25 @@ router.post("/signup", (req, res) => {
       return token
 
     })
-    .then((token) => {
+    .then(async (token) => {
       console.log(token)
-      const userData = {
+      const url = `https://enterprise-devices-testing.herokuapp.com/api/auth/signup/${token}`
+      const data = {
         from: "Lambda X Enterprise Devices <developers@support.enterprise-devices.com>",
         to: `${user.first_name}  <${user.email}>`,
         subject: "Signup Conformation",
-        html: `<p Hello ${user.first_name},\n This is to confirm you signed up with Lambda X Enterprise Devices\n Please verify your email by clicking the link below.\n Thank You,\n Lambda X Enterprise Device Dev Team` +
-          `<a href="https://enterprise-devices-testing.herokuapp.com/api/auth/signup/` + token + `">Confirm Email</a></p>`
+       
+         html:`<p>Hello ${user.first_name},<br/>Please confirm your email by following the link.</p><br/>
+         <a href=${url}>Confirm<a><br/>
+         <p>Thank You,<br/>Enterprise Devices Dev Team</p>`,
+         
+      
+      
       }
-      sendEmail.sendEmail(userData)
-
-      res.status(200).json({
+      console.log(data)
+     await confirmEmail.sendEmail(data)
+    
+       res.status(200).json({
         message: `Company ${company.company_name} and User ${user.email} created successfully.Please check your email.`,
 
       })
@@ -117,7 +125,7 @@ router.post("/signup", (req, res) => {
  */
 router.post("/login", (req, res) => {
 
-  const email = req.body.email
+
   const password = req.body.password
   Auth.login(req.body.email)
     .then(user => {
